@@ -24,3 +24,18 @@ $ ionic cordova run ios
 
 Substitute ios for android if not on a Mac.
 
+
+
+> ionic config set app_id "dce0c962" --json
+[OK] app_id set to "dce0c962" in ./ionic-favorite-quotes/ionic.config.json!
+> ionic git remote
+> git remote add ionic git@git.ionicjs.com:tmilos1/ionic-favorite-quotes.git
+[OK] Added remote ionic.
+[OK] Project linked with app dce0c962!
+> git add -A
+> git commit -m "Initial commit" --no-gpg-sign
+
+Next Steps:
+Go to your newly created project: cd ./ionic-favorite-quotes
+Then, push your code to the Ionic Dashboard: git push ionic master
+
