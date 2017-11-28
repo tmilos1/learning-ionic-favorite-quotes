@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { IonicPage, NavParams, AlertController } from 'ionic-angular';
 import { Quote } from '../../data/quotes.interface';
+import { QuotesService } from '../../services/quotes';
 
 @IonicPage()
 @Component({
@@ -10,7 +11,7 @@ import { Quote } from '../../data/quotes.interface';
 export class QuotesPage implements OnInit {
   quoteGroup: {category: string, quotes: Quote[], icon: string};
 
-  constructor(private navParams: NavParams, private alertCtrl: AlertController) {}
+  constructor(private navParams: NavParams, private alertCtrl: AlertController, private quotesService: QuotesService) {}
 
   ngOnInit() {
     this.quoteGroup = this.navParams.data;
@@ -21,7 +22,7 @@ export class QuotesPage implements OnInit {
   // Add Elvis operator (?) in template to use this approach
   // }
 
-  addToFavorite(selectedQuote: Quote) {
+  addToFavorites(selectedQuote: Quote) {
     const alert = this.alertCtrl.create({
       title: 'Add Quote',
       subTitle: 'Are you sure?',
@@ -30,7 +31,7 @@ export class QuotesPage implements OnInit {
         {
           text: 'Yes, go ahead',
           handler: () => {
-            console.log('Ok');
+            this.quotesService.addQuoteToFavorites(selectedQuote);
           }
         },
         {
@@ -44,5 +45,13 @@ export class QuotesPage implements OnInit {
     });
 
     alert.present();
+  }
+
+  removeFromFavorites(quote: Quote) {
+    this.quotesService.removeQuoteFromFavorites(quote);
+  }
+
+  isFavorite(quote: Quote) {
+    return this.quotesService.isQuoteFavorite(quote);
   }
 }
