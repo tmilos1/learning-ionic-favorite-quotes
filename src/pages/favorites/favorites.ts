@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage, ModalController, MenuController } from 'ionic-angular';
+import { IonicPage, ModalController } from 'ionic-angular';
 import { Quote } from '../../data/quotes.interface';
 import { QuotesService } from '../../services/quotes';
 import { QuotePage } from '../quote/quote';
 
+import { SettingsService } from '../../services/settings';
 
 @IonicPage()
 @Component({
@@ -16,7 +17,7 @@ export class FavoritesPage {
   constructor (
     private quotesService: QuotesService,
     private modalCtrl: ModalController,
-    private menuCtrl: MenuController
+    private settingsService: SettingsService
   ) {}
 
   ionViewWillEnter() {
@@ -43,7 +44,7 @@ export class FavoritesPage {
     this.quotes.splice(position, 1);
   }
 
-  onOpenMenu() {
-    this.menuCtrl.open();
+  getItemBackground(): string {
+    return this.settingsService.isAlternativeColor() ? 'altBackground' : 'quoteBackground';
   }
 }
